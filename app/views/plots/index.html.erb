@@ -6,7 +6,9 @@
   <section id= "index-plots-<%= plot.id %>"> 
   <h4> Plot Number: <%= plot.number %> </h4>
     <% plot.plants.each do |plant| %>
-     <p> <%= plant.name %> </p>
+      <section id= "plot-plant-<%= plant.id %>"> 
+      <p> <%= plant.name %> <%= link_to "Remove Plant", "/plots/#{plot.id}/plants/#{plant.id}", method: :delete %></p>
+      </section>
     <% end %>
   </section>
 <% end %>

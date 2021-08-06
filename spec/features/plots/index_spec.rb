@@ -47,7 +47,47 @@ RSpec.describe 'it can show the index page for the plots' do
     end
   end
 
-  it '' do
+  it 'should have a button next to the plants name that says remove plant' do
+
+    within "#index-plots-#{@plot3.id}" do
+      within "#plot-plant-#{@plant1.id}" do
+        expect(page).to have_link("Remove Plant")
+      end
+    end
     
+    within "#index-plots-#{@plot3.id}" do
+      within "#plot-plant-#{@plant2.id}" do
+        expect(page).to have_link("Remove Plant")
+      end
+    end
+    
+    within "#index-plots-#{@plot3.id}" do
+      within "#plot-plant-#{@plant3.id}" do
+        expect(page).to have_link("Remove Plant")
+      end
+    end
+  end
+
+  it 'can click the Remove Plant button next to the plant that you want to delete, the association between that plant and plot is deleted and not the plant as whole' do
+
+    within "#index-plots-#{@plot3.id}" do
+      within "#plot-plant-#{@plant1.id}" do
+        click_link("Remove Plant")
+      end
+    end
+    
+    within "#index-plots-#{@plot3.id}" do
+      expect(page).to have_content("#{@plot3.number}")
+      expect(page).to have_content("#{@plant2.name}")
+      expect(page).to have_content("#{@plant3.name}")
+      expect(page).to have_content("#{@plant4.name}")
+    
+      expect(page).to_not have_content("#{@plant1.name}")
+    end
+
+    within "#index-plots-#{@plot1.id}" do
+      expect(page).to have_content("#{@plot1.number}")
+      expect(page).to have_content("#{@plant1.name}")
+    end
   end
 end
