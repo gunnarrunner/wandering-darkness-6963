@@ -26,9 +26,14 @@ RSpec.describe 'it can show the show page for a specific garden' do
 
     visit "/gardens/#{@garden1.id}"
   end
+
   it 'can show all the plants that are associated with this garden' do
     expect(page).to have_content(@plant1.name)
     expect(page).to have_content(@plant2.name)
     expect(page).to have_content(@plant4.name)
+  end
+
+  xit 'can show the plants in order of how often they appear in the gardens plots' do
+    
   end
 end
