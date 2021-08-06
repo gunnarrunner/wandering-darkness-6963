@@ -1,14 +1,27 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-Garden.create(name: 'Turing Community Garden', organic: true)
-Garden.create(name: 'Main Street Garden', organic: false)
+PlotPlant.destroy_all
+Plant.destroy_all
+Plot.destroy_all
+Garden.destroy_all
 
-Garden.first.plots.create(number: 345, size: 'Medium', direction: 'North')
-Garden.first.plots.create(number: 346, size: 'Large', direction: 'East')
-Garden.last.plots.create(number: 878, size: 'Small', direction: 'East')
-Garden.last.plots.create(number: 879, size: 'Small', direction: 'West')
+@garden1 = Garden.create!(name: "Gunnar's", organic: true)
+@garden2 = Garden.create!(name: "Greg's", organic: false)
+
+@plot1 = Plot.create!(number: 36, size: "small", direction: "east", garden_id: @garden1.id)
+@plot2 = Plot.create!(number: 24, size: "medium", direction: "west", garden_id: @garden1.id)
+@plot3 = Plot.create!(number: 5, size: "large", direction: "north", garden_id: @garden1.id)
+@plot4 = Plot.create!(number: 69, size: "large", direction: "south", garden_id: @garden2.id)
+
+@plant1 = Plant.create!(name: "Rose", description: "Flower", days_to_harvest: 55)
+@plant2 = Plant.create!(name: "Lily", description: "Flower", days_to_harvest: 35)
+@plant3 = Plant.create!(name: "Carrot", description: "vegetable", days_to_harvest: 200)
+@plant4 = Plant.create!(name: "Lettuce", description: "vegetable", days_to_harvest: 30)
+@plant5 = Plant.create!(name: "pickles", description: "vegetable", days_to_harvest: 30)
+
+@plot_plant1 = PlotPlant.create!(plant_id: @plant1.id, plot_id: @plot1.id)
+@plot_plant2 = PlotPlant.create!(plant_id: @plant2.id, plot_id: @plot1.id)
+@plot_plant3 = PlotPlant.create!(plant_id: @plant3.id, plot_id: @plot2.id)
+@plot_plant4 = PlotPlant.create!(plant_id: @plant4.id, plot_id: @plot2.id)
+@plot_plant5 = PlotPlant.create!(plant_id: @plant1.id, plot_id: @plot3.id)
+@plot_plant6 = PlotPlant.create!(plant_id: @plant2.id, plot_id: @plot3.id)
+@plot_plant7 = PlotPlant.create!(plant_id: @plant3.id, plot_id: @plot3.id)
+@plot_plant8 = PlotPlant.create!(plant_id: @plant4.id, plot_id: @plot3.id)

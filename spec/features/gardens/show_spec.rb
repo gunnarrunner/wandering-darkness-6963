@@ -1,10 +1,5 @@
 require 'rails_helper'
-
-RSpec.describe Garden do
-  describe 'relationships' do
-    it { should have_many(:plots) }
-  end
-
+RSpec.describe 'it can show the show page for a specific garden' do
   before :each do
     @garden1 = Garden.create!(name: "Gunnar's", organic: true)
     @garden2 = Garden.create!(name: "Greg's", organic: false)
@@ -18,7 +13,7 @@ RSpec.describe Garden do
     @plant2 = Plant.create!(name: "Lily", description: "Flower", days_to_harvest: 35)
     @plant3 = Plant.create!(name: "Carrot", description: "vegetable", days_to_harvest: 200)
     @plant4 = Plant.create!(name: "Lettuce", description: "vegetable", days_to_harvest: 30)
-    @plant5 = Plant.create!(name: "pickles", description: "vegetable", days_to_harvest: 10)
+    @plant5 = Plant.create!(name: "pickles", description: "vegetable", days_to_harvest: 30)
 
     @plot_plant1 = PlotPlant.create!(plant_id: @plant1.id, plot_id: @plot1.id)
     @plot_plant2 = PlotPlant.create!(plant_id: @plant2.id, plot_id: @plot1.id)
@@ -28,13 +23,12 @@ RSpec.describe Garden do
     @plot_plant6 = PlotPlant.create!(plant_id: @plant2.id, plot_id: @plot3.id)
     @plot_plant7 = PlotPlant.create!(plant_id: @plant3.id, plot_id: @plot3.id)
     @plot_plant8 = PlotPlant.create!(plant_id: @plant4.id, plot_id: @plot3.id)
-  end  
 
-  describe 'instance methods' do
-    describe '#fast_unique_plants' do
-      it 'can list all the unique fast plants in that garden' do
-        expect(@garden1.fast_unique_plants).to eq([@plant4.name, @plant2.name, @plant1.name])
-      end
-    end
+    visit "/gardens/#{@garden1.id}"
+  end
+  it 'can show all the plants that are associated with this garden' do
+    expect(page).to have_content(@plant1.name)
+    expect(page).to have_content(@plant2.name)
+    expect(page).to have_content(@plant4.name)
   end
 end

@@ -1,0 +1,6 @@
+<h1> <%= @garden.name %> Garden! </h1>
+</br>
+
+<% @garden.fast_unique_plants.each do |plant| %>
+ <p> Plant Name: <%= plant %> </p>
+ <% end %>
