@@ -1,6 +1,6 @@
 <h1> <%= @garden.name %> Garden! </h1>
 </br>
-
+<h2> Plants that <%= @garden.name %> grows that take less than 100 days to harvest!! </h2>
 <% @garden.fast_unique_plants.each do |plant| %>
  <p> Plant Name: <%= plant %> </p>
  <% end %>
